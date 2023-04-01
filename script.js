@@ -1,4 +1,4 @@
-window.addEventListener("load", function () {
+$(function () {
   elemekElerese1();
   elemekElerese2();
   elemekElerese3();
@@ -11,73 +11,56 @@ window.addEventListener("load", function () {
 });
 
 function elemekElerese1() {
-  let sectionCim = document.querySelectorAll("section:nth-of-type(1) h2")[0];
-  console.log(sectionCim.innerText);
+  let sectionCim = $("section:nth-of-type(1) h2").text();
+  console.log(sectionCim);
 }
 
 function elemekElerese2() {
-  let ide = document.querySelector("#ide");
-  let paragraph = document.createElement("p");
-
-  ide.appendChild(paragraph);
-  paragraph.innerText = "Jó reggelt!";
+  let ide = $("#ide");
+  ide.append(`<p>Jó reggelt!</p>`);
 }
 
 function elemekElerese3() {
-  let ide = document.querySelectorAll(".ide")[0];
-  let paragraph = document.createElement("p");
-
-  ide.appendChild(paragraph);
-  paragraph.innerText = "Jó reggelt!";
+  let ide = $(".ide").eq(0);
+  ide.append(`<p>Jó reggelt!</p>`);
 }
 
 function elemekElerese4() {
-  let lista = document.querySelectorAll(".lista")[0];
-  let ul = document.createElement("ul");
-
-  lista.appendChild(ul);
-
+  let lista = $(".lista").eq(0);
+  let txt = "<ul>";
   for (let i = 0; i < 5; i++) {
-    let li = document.createElement("li");
-    ul.appendChild(li);
-    li.innerText = Math.floor(Math.random() * 21) + 10;
+    txt += `<li>${Math.floor(Math.random() * 21) + 10}</li>`;
   }
+  txt += "</ul>";
+
+  lista.append(txt);
 }
 
 function elemekFormazasa1() {
-  let lista = document.querySelectorAll(".lista")[0];
-  lista.classList.add("formazott");
+  $(".lista").eq(0).addClass("formazott");
 }
 
 function esemenyKezeles1() {
-  let lista = document.querySelectorAll(".lista")[0];
-  let kattintasutan = document.querySelectorAll(".kattintasutan")[0];
+  let lista = $(".lista").eq(0);
+  let kattintasutan = $(".kattintasutan").eq(0);
 
-  lista.addEventListener("click", () => {
-    let listaHTML = lista.innerHTML;
-    listaHTML = listaHTML.replaceAll("ul", "div");
-    listaHTML = listaHTML.replaceAll("li", "p");
-    kattintasutan.innerHTML = listaHTML;
+  lista.on("click", () => {
+    kattintasutan.append(lista.html());
   });
 }
 
 function esemenyKezeles2() {
-  let feladat = document.querySelectorAll(".feladat")[0];
-  let gomb = document.createElement("button");
+  let feladat = $(".feladat").eq(0);
+  feladat.append(`<button>OK</button>`);
+  let gomb = $(`.feladat button`).eq(0);
+  let txt_div = "<div>";
+  gomb.on("click", () => {
+    txt += `<img src="newborn-baby-chick-g8807d709a_640.jpg" alt="kis csibe üldögél">`;
 
-  feladat.appendChild(gomb);
-  gomb.innerText = "OK";
-  gomb.addEventListener("click", () => {
-    let div = document.createElement("div");
-    let img = document.createElement("img");
-
-    feladat.appendChild(div);
-    div.style.display = "inline-block";
-    div.appendChild(img);
-    img.src = "newborn-baby-chick-g8807d709a_640.jpg";
-    img.alt = "kis csirke üldögél";
     esemenyKezeles3();
   });
+  txt += `</div>`;
+  feladat.append(txt);
 }
 
 function esemenyKezeles3() {
