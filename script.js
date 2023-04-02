@@ -11,29 +11,29 @@ $(function () {
 });
 
 function elemekElerese1() {
-  let sectionCim = $("section:nth-of-type(1) h2").text();
+  let sectionCim = $("section:first h2").text();
   console.log(sectionCim);
 }
 
 function elemekElerese2() {
-  let ide = $("#ide");
-  ide.append(`<p>Jó reggelt!</p>`);
+  $("#ide").html("<p>Jó reggelt!</p>");
 }
 
 function elemekElerese3() {
-  let ide = $(".ide").eq(0);
-  ide.append(`<p>Jó reggelt!</p>`);
+  $(".ide").eq(0).html("<p>Jó reggelt!</p>");
 }
 
 function elemekElerese4() {
   let lista = $(".lista").eq(0);
-  let txt = "<ul>";
-  for (let i = 0; i < 5; i++) {
-    txt += `<li>${Math.floor(Math.random() * 21) + 10}</li>`;
-  }
-  txt += "</ul>";
+  let ul = $("<ul></ul>")
 
-  lista.append(txt);
+  lista.append(ul)
+  for (let i = 0; i < 5; i++) {
+    let li = $("<li></li>")
+    ul.append(li)
+    li.text(Math.floor(Math.random() * 21) + 10)
+  }
+
 }
 
 function elemekFormazasa1() {
@@ -51,43 +51,33 @@ function esemenyKezeles1() {
 
 function esemenyKezeles2() {
   let feladat = $(".feladat").eq(0);
-  feladat.append(`<button>OK</button>`);
-  let gomb = $(`.feladat button`).eq(0);
-  let txt_div = "<div>";
-  gomb.on("click", () => {
-    txt += `<img src="newborn-baby-chick-g8807d709a_640.jpg" alt="kis csibe üldögél">`;
+  let gomb = $(`<button>OK</button>`);
+  feladat.append(gomb);
 
-    esemenyKezeles3();
-  });
-  txt += `</div>`;
-  feladat.append(txt);
-}
-
-function esemenyKezeles3() {
-  let feladat = document.querySelectorAll(".feladat")[0];
-  let kepek = feladat.querySelectorAll("img");
-
-  kepek.forEach((kep) => {
-    kep.addEventListener("mouseenter", kepmeretValtoztat);
-    kep.addEventListener("mouseleave", kepmeretValtoztat);
+  gomb.click(() => {
+    let div = $("<div></div>");
+    let img = $(
+      `<img src="newborn-baby-chick-g8807d709a_640.jpg" alt="kis csibe üldögél">`
+    );
+    feladat.append(div);
+    div.append(img);
+    img.hover((e) => {
+      esemenyKezeles3(e);
+    });
   });
 }
 
-function kepmeretValtoztat(e) {
-  e.target.classList.toggle("nagykep");
+function esemenyKezeles3(e) {
+  $(e.target).toggleClass("nagykep");
 }
 
 function esemenyKezeles4() {
-  let tarolo = document.querySelectorAll(".tarolo")[0];
-  let divek = tarolo.querySelectorAll("div");
-  let eredmeny = document.querySelectorAll(".megjelenito")[0];
+  let divek = $(".tarolo div");
+  let eredmeny = $(".megjelenito").eq(0);
 
   let i = 0;
 
-  divek.forEach((div) => {
-    div.addEventListener("click", (e) => {
-      eredmeny.innerHTML += (0 < i ? " " : "") + e.target.innerHTML;
-      i++;
-    });
+  divek.click((e) => {
+    eredmeny.append((0 < i++ ? " " : "") + $(e.target).text())
   });
 }

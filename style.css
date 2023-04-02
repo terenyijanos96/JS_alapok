@@ -75,6 +75,10 @@ div.elem {
   cursor: pointer;
 }
 
+div.feladat div {
+  display: inline-block;
+}
+
 div.feladat img {
   width: 100px;
 }
