@@ -75,9 +75,7 @@ function esemenyKezeles4() {
   let divek = $(".tarolo div");
   let eredmeny = $(".megjelenito").eq(0);
 
-  let i = 0;
-
   divek.click((e) => {
-    eredmeny.append((0 < i++ ? " " : "") + $(e.target).text())
+    eredmeny.append((eredmeny.text() ? " " : "") + $(e.target).text())
   });
 }
